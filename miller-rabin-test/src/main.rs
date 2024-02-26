@@ -1,5 +1,8 @@
 // Import the rand crate to generate random numbers
 use rand::Rng;
+use std::io;
+
+   
 
 // Function to perform the Miller-Rabin primality test
 // Parameters:
@@ -89,12 +92,31 @@ fn modular_exp(mut base: u64, mut exp: u64, modulus: u64) -> u64 {
 
 // Main function to test the Miller-Rabin primality test
 fn main() {
-    let n = 17977; 
+    // let n = 17977; 
     let k = 2; 
+
+    let mut number = String::new();
+    println!("Enter a value to check if its a prime number or not");
+
+    io::stdin()
+        .read_line(&mut number)
+        .expect("Failed to read line");
+
+    // Parse the input string into a u32
+    let number: u64 = match number.trim().parse() {
+        Ok(number) => number,
+        Err(_) => {
+            println!("Invalid input. Please enter a valid unsigned integer.");
+            return;
+        }
+    };
+
+
+
     // Perform the test and print the result
-    if miller_rabin(n, k) {
-        println!("{} is likely prime", n);
+    if miller_rabin(number, k) {
+        println!("{} is likely prime", number);
     } else {
-        println!("{} is composite", n);
+        println!("{} is composite", number);
     }
 }
